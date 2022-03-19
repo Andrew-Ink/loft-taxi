@@ -1,4 +1,19 @@
-ul, ol {
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+ul, ol, h1, h2, h3, h4, h5, h6, p, button {
   margin: 0;
   padding: 0;
 }
@@ -7,41 +22,98 @@ ul li {
   list-style: none;
 }
 
-.App {
-  text-align: center;
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Roboto', Helvetica, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root {
+  min-height: 100%;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+main {
+  min-height: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-content {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 102px;
+  background-color: #1C1A19;
+}
+
+.section {
+  max-width: 1440px;
+  min-height: 100%;
+  margin: 0 auto;
+}
+
+.header .section {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0 50px 0 27px;
 }
 
-.App-link {
-  color: #61dafb;
+.logo-wrapper {
+ display: flex;
+ align-items: center;
+ gap: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.menu {
+  width: 294px;
+  color: #fff;
+  margin-right: 50px;
+}
+
+.menu__list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu__button {
+  color: #fff;
+  font-size: 21px;
+}
+
+.menu__button:hover
+ {
+  color: #FDBF5A;
+}
+
+.button {
+  width: 353px;
+  height: 61px;
+  border-radius: 70px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.button_theme--orange {
+  background-color: #FDBF5A;
+}
+
+.button_theme--orange:active {
+  background-color: #FFA842;
+}
+
+.button_theme--light {
+  width: auto;
+  height: auto;
+  font-size: inherit;
+  font-weight: 400;
+  color: #FDBF5A;
+}
+
+.button_theme--light:hover {
+  color:#828282;
+  
 }

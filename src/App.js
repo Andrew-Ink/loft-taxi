@@ -1,15 +1,17 @@
 import './App.css';
 import React from 'react';
-import { Login } from './components/login/login';
+import { LoginWithAuth } from './components/login/login';
 import { Map } from './components/map/map';
-import { Profile } from './components/profile/profile';
+import { ProfileWithAuth } from './components/profile/profile';
 import { Registration } from './components/registration/registration';
+import { withAuth } from './components/AuthContext/authContext'
+
 
 const PAGES = {
-  login: Login,
-  map: Map,
-  profile: Profile,
-  registration: Registration
+  login: (props) => <LoginWithAuth {...props} />,
+  map: (props) => <Map {...props} />,
+  profile: (props) => <ProfileWithAuth {...props} />,
+  registration: (props) => <Registration {...props} />
 }
 
 class App extends React.Component {
@@ -19,7 +21,16 @@ class App extends React.Component {
   }
 
   navigateTo(page) {
-    this.setState({ currentPage: page })
+    // if (this.props.isLoggedIn) {
+      this.setState({ currentPage: page })
+    // } else {
+      // this.setState({ currentPage: 'login' })
+    // }
+  }
+
+  unauthenticate = () => {
+    this.props.logOut();
+    this.navigateTo('login');
   }
 
   render() {
@@ -27,37 +38,41 @@ class App extends React.Component {
     const Page = PAGES[this.state.currentPage]
 
     return (
-      <>{ !(this.state.currentPage === 'login' || this.state.currentPage === 'registration') && 
+      <>{!(this.state.currentPage === 'login' || this.state.currentPage === 'registration') &&
         <header className="header" >
-          <nav className="menu">
-            <ul className="menu__list">
-              <li className="menu__item">
-                <button className="button" onClick={() => {
-                  this.navigateTo("map")
-                }}>
-                  Карта
-                </button>
-              </li>
-              <li className="menu__item">
-                <button className="button" onClick={() => {
-                  this.navigateTo("profile")
-                }}>
-                  Профиль
-                </button>
-              </li>
-              <li className="menu__item">
-                <button className="button" onClick={() => {
-                  this.navigateTo("login")
-                }}>
-                  Выйти
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </header> }
+          <section className='section'>
+            <div className="logo-wrapper">
+              <img className="logo" src="./img/logo.png" alt="logo" />
+              <img className="logo-title" src="./img/logo-title.png" alt="logo" />
+            </div>
+            <nav className="menu">
+              <ul className="menu__list">
+                <li className="menu__item">
+                  <button className="menu__button" onClick={() => {
+                    this.navigateTo("map")
+                  }}>
+                    Карта
+                  </button>
+                </li>
+                <li className="menu__item">
+                  <button className="menu__button" onClick={() => {
+                    this.navigateTo("profile")
+                  }}>
+                    Профиль
+                  </button>
+                </li>
+                <li className="menu__item">
+                  <button className="menu__button" onClick={this.unauthenticate}>
+                    Выйти
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </section>
+        </header>}
         <main className="main-content">
           <section className="section">
-            <Page navigateTo = {this.navigateTo.bind(this)} />
+            <Page navigateTo={this.navigateTo.bind(this)} />
           </section>
         </main>
       </>
@@ -65,4 +80,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth(App);
